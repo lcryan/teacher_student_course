@@ -1,9 +1,10 @@
 package com.example.les13relations.model;
 
 import jakarta.persistence.*;
-import org.hibernate.collection.spi.PersistentSet;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,8 @@ public class Course {
     private String title;
     private int sp;
 
+    @OneToMany(mappedBy = "course")
+    private List<Lesson> lessons = new ArrayList<>();
     @ManyToMany
     private Set<Teacher> teachers = new HashSet<>();
 
@@ -48,5 +51,13 @@ public class Course {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
